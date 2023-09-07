@@ -1,29 +1,27 @@
 "use client"
+import { useParams, useRouter } from "next/navigation";
+import { useEffect, useState } from "react"
 
-import { useRouter } from "next/navigation";
-import React, { useState } from "react";
-interface IResult {
-  title: string,
-  id: number
-}
-export default function Create() {
+export default function Update(){
   const router = useRouter()
+  const params = useParams()
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const options = {
-      method: 'POST',
+      method: 'PATCH',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({title:title, body: content})
+      body: JSON.stringify({title, body: content})
     }
-    fetch(`http://localhost:9999/topics`, options)
+    fetch(`http://localhost:9999/topics/` + params.id, options)
     .then((res) => res.json())
-    .then((res: IResult) => 
+    .then((res) => 
     {
       const id = res.id
+      console.log(id)
       router.refresh()
       router.push(`/read/${id}`)
     }
@@ -32,6 +30,14 @@ export default function Create() {
   const handleChange = (e:React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, setFuc: (params: string) => void) => {
     setFuc(e.target.value)
   }
+  useEffect(() => {
+    fetch(`http://localhost:9999/topics/` + params.id)
+    .then((res) => res.json())
+    .then((res) => {
+      setTitle(res.title)
+      setContent(res.body)
+    })
+  }, [])
   return (
     <form onSubmit={handleSubmit}>
       <p>

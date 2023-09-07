@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import './globals.css'
 import type { Metadata } from 'next'
+import { Control } from './Control'
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -11,6 +12,7 @@ export interface Topics{
     title: string,
     body: string
 }
+
 export const url = 'http://localhost:9999/topics'
 export default async function RootLayout({
   children,
@@ -18,7 +20,7 @@ export default async function RootLayout({
   children: React.ReactNode
 }) {
   
-  const res = await fetch(url)
+  const res = await fetch(url, { cache: 'no-store' })
   const topics: Topics[] = await res.json()
     
   return (
@@ -45,17 +47,7 @@ export default async function RootLayout({
           </li>
         </ol>
         {children}
-        <ul>
-          <li>
-            <Link href="/create">Create</Link>
-          </li>
-          <li>
-            <Link href="/upadate/1">Upadate</Link>
-          </li>
-          <li>
-            <input type="button" value="delete" />
-          </li>
-        </ul>
+        <Control />
         </body>
     </html>
   )
