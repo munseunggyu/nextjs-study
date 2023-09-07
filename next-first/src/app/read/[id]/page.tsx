@@ -6,7 +6,7 @@ interface ReadProps {
   }
 }
 export default async function Read(props: ReadProps) {
-  const res = await fetch(`${url}/${props.params.id}`)
+  const res = await fetch(`${url}/${props.params.id}`, {cache: 'no-store'})
   const topics: Topics = await res.json()
   console.log(topics.body)
   return (

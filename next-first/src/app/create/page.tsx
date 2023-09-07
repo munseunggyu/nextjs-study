@@ -25,6 +25,7 @@ export default function Create() {
     {
       const id = res.id
       console.log(id)
+      router.refresh()
       router.push(`/read/${id}`)
     }
     )
