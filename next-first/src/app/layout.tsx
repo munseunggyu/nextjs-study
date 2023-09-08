@@ -19,9 +19,10 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  
-  const res = await fetch(url, { cache: 'no-store' })
+  const apiURL = process.env.NEXT_PUBIC_API_URL
+  const res = await fetch(apiURL + 'topics', { cache: 'no-store' })
   const topics: Topics[] = await res.json()
+  
     
   return (
     <html>
@@ -34,7 +35,8 @@ export default async function RootLayout({
               topics.map(topics => {
                 return(
                   <li key={topics.id}>
-                    {topics.title}
+                    
+                    <Link href={`/read/${topics.id}`}>{topics.title} </Link>
                     </li>
                 )
               })
