@@ -13,26 +13,17 @@ interface IMovie {
   poster_path: string
 }
 
-const Home: NextPage = () => {
+const Home = ({results}: {results: IMovie[]}) => {
   const router = useRouter()
-  const [movies, setMovies] = useState<IMovie[]>([])
   const onClick = (id: number, title: string) => {
     router.push(`/movies/${title}/${id}`);
   };
-  useEffect(() => {
-        fetch('/api/movies')
-        .then(res => res.json())
-        .then(res => {
-          console.log(res.results)
-          setMovies(res.results)
-        })
-    
-  },[])
+
   return (
     <>
       <Seo title='Home'/>
       {
-        movies.map((movie) => (
+        results.map((movie) => (
           <div
           onClick={() => onClick(movie.id, movie.title)}
           className="movie"
@@ -76,3 +67,14 @@ const Home: NextPage = () => {
 }
 
 export default Home
+
+export async function getServerSideProps() {
+  const { results } = await (
+    await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${process.env.NEXT_PUBIC_API_URL}`)
+  ).json();
+  return {
+    props: {
+      results,
+    },
+  };
+}
