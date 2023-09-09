@@ -1,11 +1,11 @@
+import Layout from '../components/Layout'
 import NavBar from '../components/NavBar'
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <>
-      <NavBar />
+    <Layout>
       <Component {...pageProps} />
 
       <style global jsx>
@@ -15,7 +15,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           }
         `}
       </style>
-    </>
+    </Layout>
   )
 }
 
