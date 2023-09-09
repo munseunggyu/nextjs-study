@@ -1,0 +1,7 @@
+/nomad-nextjs/node_modules
+/nomad-nextjs/.next
+/nomad-nextjs/.env*.local
+/nomad-nextjs/next-env.d.ts
+
+/next-first/node_modules
+/next-first/.next
