@@ -11,6 +11,14 @@ const nextConfig = {
         permanent: false
       }
     ]
+  },
+  async rewrites(){
+    return [
+      {
+        source: '/api/movies',
+        destination: `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.NEXT_PUBIC_API_URL}`
+      }
+    ]
   }
 }
 
