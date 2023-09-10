@@ -16,7 +16,14 @@ interface IMovie {
 const Home = ({results}: {results: IMovie[]}) => {
   const router = useRouter()
   const onClick = (id: number, title: string) => {
-    router.push(`/movies/${title}/${id}`);
+    router.push({
+      pathname: `movies/${title}/${id}`,
+      query:{
+        title
+      }
+    },
+    `movies/${title}/${id}`
+    );
   };
 
   return (
@@ -31,14 +38,21 @@ const Home = ({results}: {results: IMovie[]}) => {
         >
           <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} />
           <h4>
-            <Link href={`/movies/${movie.title}/${movie.id}`}>
+            <Link href={{
+              pathname: `/movies/${movie.title}/${movie.id}`,
+              query: {
+                title: movie.title
+              }
+            }}
+            as={`/movies/${movie.title}/${movie.id}`}
+            >
               {movie.title}
             </Link>
           </h4>
         </div>
         ))
       }
-          <style jsx>{`
+      <style jsx>{`
         .container {
           display: grid;
           grid-template-columns: 1fr 1fr;
