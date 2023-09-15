@@ -9,3 +9,10 @@ export default function Sulg({ params }: Props) {
     <div>Sulg {params.slug} </div>
   )
 }
+
+export function generateStaticParams() {
+  const products = ['pants', 'skrit']
+  return products.map(product => {
+    slug: product
+  })
+}
