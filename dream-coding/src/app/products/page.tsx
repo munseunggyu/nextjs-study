@@ -1,9 +1,17 @@
+
 import Link from 'next/link'
 import React from 'react'
 import Counter from '../components/Counter'
 import { getProducts } from '../service/products'
-
+import axios from 'axios'
+import MeowArticle from '../components/MeowArticle'
+type IProps = {
+  props: {
+    data: string
+  }
+}
 export default async function ProductsPage() {
+  // {props: {data}}: IProps
   // 서버 파일 (데이터베이스)에 있는 제품 리스트를 읽어와서, 그것을 보여준다
   const products = await getProducts()
   return (
@@ -21,6 +29,19 @@ export default async function ProductsPage() {
           ))
         }
       </ul>
+      <MeowArticle />
     </div>
   )
 }
+
+
+// export async function getStaticProps() {
+//   const res = await axios('https://meowfacts.herokuapp.com')
+//   const data = res.data.data[0]
+//   return {
+//     props: {
+//       data
+//     }
+//   }
+// }
+

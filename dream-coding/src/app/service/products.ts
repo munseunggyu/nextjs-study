@@ -15,4 +15,4 @@ export async function getProduct(id: string): Promise<Product | undefined> {
   // getProducts().find(val => val === id)
   const products = await getProducts()
   return products.find(val => val.id === id)
-}
+} 
