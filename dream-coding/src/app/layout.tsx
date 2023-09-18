@@ -3,7 +3,12 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import styles from './layout.module.css'
 import Link from 'next/link'
+import { Open_Sans } from 'next/font/google'
+import { Nanum_Gothic } from 'next/font/google'
+
 const inter = Inter({ subsets: ['latin'] })
+const sans = Open_Sans({ subsets: ['latin'] })
+const gothic = Nanum_Gothic({ subsets: ['latin'], weight: '700' })
 
 export const metadata: Metadata = {
   title: '제품 사이트',
@@ -19,10 +24,10 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className={sans.className}>
       <body className={inter.className}>
         <header className={styles.header}>
-          <h1>
+          <h1 className={gothic.className}>
             Demo Note App
           </h1>
           <nav className={styles.nav}>
